@@ -9,6 +9,7 @@ dotenv.config();
 connectDB(); // Connect to MongoDB before starting the server
 
 const app = express();
+const PORT = process.env.PORT;
 
 app.use(express.json()); // allows us to accept JSOn data int eh req.body
 
@@ -16,6 +17,6 @@ app.use("/api/products", productRoutes); // Middleware for parsing JSON
 
 
 
-app.listen(5002, () => {
+app.listen(PORT, () => {
     console.log("Server started at http://localhost:5002");
 });
