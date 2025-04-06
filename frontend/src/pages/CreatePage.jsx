@@ -1,4 +1,5 @@
 import { Container, Box, VStack, Heading, Input, Button } from '@chakra-ui/react'
+import { Toaster, toaster } from "../components/ui/toaster"
 import React, { useState } from 'react'
 import { useColorModeValue } from '../components/ui/color-mode'
 import { useProductStore } from '../stores/product.js'
@@ -11,8 +12,15 @@ export default function CreatePage() {
     const {createProduct} = useProductStore()
     const handleAddProduct = async () =>{
        const {success, message} = await createProduct(newProduct)
-       console.log("Success: ", success);
-       console.log("Message: ", message);
+       toaster.create({
+        type: success ? 'success' : 'error', // will affect the indicator/spinner
+        title: success ? 'Success' : 'Error',
+        description: message,
+        meta: {
+          closable: true,
+        },
+      })
+      setNewProduct({name: "", price: "", image: ""}) // reset the state
     }
   return (
     <Container maxW={"container.md"}>
